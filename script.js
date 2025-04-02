@@ -1,6 +1,8 @@
 // Mock user data
 const mockUsers = [
-    { email: "user@example.com", password: "password123" }
+    { email: "user@example.com", password: "password123" },
+    { email: "investor@estatevision.com", password: "investor123" },
+    { email: "premium@estatevision.com", password: "premium123" }
 ];
 
 // DOM Elements
@@ -42,6 +44,7 @@ if (loginForm) {
         
         if (user) {
             localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('userEmail', email);
             window.location.href = 'dashboard.html';
         } else {
             alert('Invalid credentials');
@@ -98,4 +101,10 @@ document.addEventListener('DOMContentLoaded', function() {
             link.classList.remove('text-gray-500');
         }
     });
+
+    // Show investor features if logged in as investor
+    const userEmail = localStorage.getItem('userEmail');
+    if (userEmail && userEmail.includes('investor')) {
+        document.getElementById('financialSection').classList.remove('hidden');
+    }
 });
